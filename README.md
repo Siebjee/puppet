@@ -36,7 +36,7 @@ NOTE: Resource tiltes are not being used.
 `Hash` Optional, Default: empty
 
 ## Examples:
-###Example with only required parameters
+### Example with only required parameters
 ```puppet
 class {'panopta':
   customer_key => 'abc-def-hij',
@@ -44,7 +44,7 @@ class {'panopta':
 }
 ```
 
-###Enabling a module:
+### Enabling a module:
 ```puppet
 class {'panopta':
   customer_key => 'abc-def-hij',
@@ -59,7 +59,7 @@ class {'panopta':
 }
 ```
 
-###Enabling multiple modules:
+### Enabling multiple modules:
 ```puppet
 class {'panopta':
   customer_key => 'abc-def-hij',
