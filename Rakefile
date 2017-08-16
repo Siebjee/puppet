@@ -16,7 +16,7 @@ task :validate do
   end
 end
 
-task :test => [
+task :default => [
   :syntax,
   :lint,
   :spec,
