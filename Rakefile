@@ -1,5 +1,4 @@
 require 'rubygems'
-require 'rspec_junit_formatter'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-strings/tasks'
 require 'puppet-lint/tasks/puppet-lint'
