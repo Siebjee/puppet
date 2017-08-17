@@ -14,8 +14,8 @@ describe 'panopta::manifest' do
   # manifest you should mock the facts below.
   let(:facts) do
     {
-      :hostname => 'test',
-      :fqdn => 'test.example.local'
+      'hostname' => 'test',
+      'fqdn' => 'test.example.local'
     }
   end
 
@@ -24,7 +24,7 @@ describe 'panopta::manifest' do
   # while all required parameters will require you to add a value
   let(:params) do
     {
-      :customer_key => nil,
+      :customer_key => 'abc-def-hij',
       #:server_key => "UNSET",
       #:server_group => "0",
       #:aggregator_url => "UNSET",

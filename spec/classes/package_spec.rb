@@ -14,7 +14,7 @@ describe 'panopta::package' do
   # manifest you should mock the facts below.
   let(:facts) do
     {
-      :osfamily => 'Linux'  
+      'osfamily' => 'Debian'  
     }
   end
 
