@@ -25,7 +25,7 @@ describe 'panopta::manifest' do
   let(:params) do
     {
       :customer_key => 'abc-def-hij',
-      #:server_key => "UNSET",
+      :server_key => "1234567890",
       #:server_group => "0",
       #:aggregator_url => "UNSET",
       #:interface_mapping => "UNSET",
