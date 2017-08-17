@@ -13,7 +13,9 @@ describe 'panopta::package' do
   # facts on a per describe/context block.  If you use a fact in your
   # manifest you should mock the facts below.
   let(:facts) do
-    {}
+    {
+      :osfamily => 'Linux'  
+    }
   end
 
   # below is a list of the resource parameters that you can override.
@@ -27,7 +29,7 @@ describe 'panopta::package' do
   # add these two lines in a single test block to enable puppet and hiera debug mode
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
-  
+
   it do
     is_expected.to contain_apt__source("panopta_repository")
         .with({
@@ -38,5 +40,5 @@ describe 'panopta::package' do
           "key" => {},
           })
   end
-    
+
 end

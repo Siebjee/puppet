@@ -9,13 +9,15 @@ describe 'panopta::plugin' do
   # rspec-puppet does not allow you to swap out hiera data on a per test block
   #include_context :hiera
 
-  let(:title) { 'XXreplace_meXX' }
+  let(:title) { 'nginx' }
 
   # below is the facts hash that gives you the ability to mock
   # facts on a per describe/context block.  If you use a fact in your
   # manifest you should mock the facts below.
   let(:facts) do
-    {}
+    {
+      :panopta_agent_config => '/etc/panopta-agent/panopta_agent.cfg'
+    }
   end
 
   # below is a list of the resource parameters that you can override.
@@ -23,14 +25,16 @@ describe 'panopta::plugin' do
   # while all required parameters will require you to add a value
   let(:params) do
     {
-      :params => nil,
+      :params => {
+        :url => 'localhost:8080'
+      },
 
     }
   end
   # add these two lines in a single test block to enable puppet and hiera debug mode
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
-  
+
   it do
     is_expected.to contain_file_line("$title")
         .with({
@@ -38,7 +42,7 @@ describe 'panopta::plugin' do
           "line" => "[$title]",
           })
   end
-    
+
   it do
     is_expected.to contain_file_line("$title-$key")
         .with({
@@ -48,5 +52,5 @@ describe 'panopta::plugin' do
           "after" => [],
           })
   end
-    
+
 end

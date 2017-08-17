@@ -13,7 +13,10 @@ describe 'panopta::manifest' do
   # facts on a per describe/context block.  If you use a fact in your
   # manifest you should mock the facts below.
   let(:facts) do
-    {}
+    {
+      :hostname => 'test',
+      :fqdn => 'test.example.local'
+    }
   end
 
   # below is a list of the resource parameters that you can override.
@@ -36,14 +39,14 @@ describe 'panopta::manifest' do
   # add these two lines in a single test block to enable puppet and hiera debug mode
   # Puppet::Util::Log.level = :debug
   # Puppet::Util::Log.newdestination(:console)
-  
+
   it do
     is_expected.to contain_notify("Server key for: $::hostname ($::fqdn)")
         .with({
           "message" => "$real_server_key",
           })
   end
-    
+
   it do
     is_expected.to contain_file("panopta-agent-manifest")
         .with({
@@ -56,5 +59,5 @@ describe 'panopta::manifest' do
           "content" => [],
           })
   end
-    
+
 end
