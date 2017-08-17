@@ -28,5 +28,5 @@ require 'hiera-puppet-helper'
 RSpec.configure do |c|
     c.formatter = 'documentation'
     c.mock_with :rspec
-    c.exclude_pattern = /pkg\/|vendor\/|spec\//,
+    c.exclude_pattern = '**/spec/*',
 end
