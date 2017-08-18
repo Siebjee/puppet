@@ -42,9 +42,9 @@ describe 'panopta::manifest' do
 
   it do
     is_expected.to contain_notify("Server key for: $::hostname ($::fqdn)")
-        .with({
+        .with(
           "message" => "$real_server_key"
-          })
+          )
   end
 
   it do
