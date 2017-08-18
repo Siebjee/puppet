@@ -14,7 +14,7 @@ describe 'panopta::package' do
   # manifest you should mock the facts below.
   let(:facts) do
     {
-      'osfamily' => 'Debian'  
+      'osfamily' => 'Debian'
     }
   end
 
@@ -37,8 +37,11 @@ describe 'panopta::package' do
           "location" => "http://packages.panopta.com/deb",
           "release" => "stable",
           "repos" => "main",
-          "key" => {},
-          })
+          "key" => {
+            'id'     => '1C4698D2DE92D6EE8A769526B7F965468997217A',
+            'source' => 'http://packages.panopta.com/panopta.pub'
+          },
+        })
   end
 
 end

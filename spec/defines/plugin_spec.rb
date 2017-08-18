@@ -49,7 +49,7 @@ describe 'panopta::plugin' do
           "path" => "$::panopta_agent_config",
           "line" => "$key=$value",
           "match" => "^$key=",
-          "after" => [],
+          "after" => '[nginx]',
           })
   end
 

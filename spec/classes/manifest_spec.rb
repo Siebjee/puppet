@@ -43,7 +43,7 @@ describe 'panopta::manifest' do
   it do
     is_expected.to contain_notify("Server key for: $::hostname ($::fqdn)")
         .with({
-          "message" => "$real_server_key",
+          "message" => "$real_server_key"
           })
   end
 
@@ -56,7 +56,7 @@ describe 'panopta::manifest' do
           "owner" => "root",
           "group" => "root",
           "replace" => nil,
-          "content" => [],
+          "content" => []
           })
   end
 
