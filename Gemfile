@@ -1,31 +1,12 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
-group :test do
-    gem "rake"
-    gem "puppet", ENV['PUPPET_GEM_VERSION'] || '~> 4.0.0'
-    gem "rspec-puppet"
-    gem "puppetlabs_spec_helper"
-    gem 'rspec-puppet-utils'
-    gem 'hiera-puppet-helper', :git => 'https://github.com/bobtfish/hiera-puppet-helper.git'
-    gem "metadata-json-lint"
-    gem 'puppet-syntax'
-    gem 'puppet-lint'
-    gem 'semantic_puppet'
-end
+gem 'puppet', ENV['PUPPET_VERSION'] || '>= 3.0', :require => false
 
-# to disable installing the 50+ gems this group contains run : bundle install --without integration
-group :integration do
-    gem "beaker"
-    gem "beaker-rspec"
-    gem "vagrant-wrapper"
-    gem 'serverspec'
-end
-
-group :development do
-    gem "travis"
-    gem "travis-lint"
-    gem "puppet-blacksmith"
-    gem 'puppet-debugger'
-# This gem causes bundler install erorrs
-#    gem "guard-rake"
-end
+gem 'rake', :require => false
+gem 'rspec-puppet', '>= 1.0.0', :require => false
+gem 'puppetlabs_spec_helper', '>= 0.8.0', :require => false
+gem 'puppet-lint', '>= 1.1.0', :require => false
+gem 'simplecov', :require => false
+gem 'puppet-blacksmith', '>= 3.0.0', :require => false
+gem 'librarian-puppet', '>= 2.0.0', :require => false
+gem 'beaker-rspec', '>= 3.0.0', :require => false
