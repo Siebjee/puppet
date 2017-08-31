@@ -1,46 +1,28 @@
+# This file is managed centrally by modulesync
+#   https://github.com/maestrodev/puppet-modulesync
+
+require 'rake/clean'
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
-require 'puppet-syntax/tasks/puppet-syntax'
+require 'puppet_blacksmith/rake_tasks'
 
-# These two gems aren't always present, for instance
-# on Travis with --without development
-begin
-  require 'puppet_blacksmith/rake_tasks'
-  Blacksmith::RakeTask.new do |t|
-    t.tag_pattern = "v%s" # Use a custom pattern with git tag. %s is replaced with the version number.
-  end
-rescue LoadError
+CLEAN.include('spec/fixtures/manifests/', 'spec/fixtures/modules/', 'doc', 'pkg')
+CLOBBER.include('.tmp', '.librarian')
+
+ENV['STRICT_VARIABLES']='yes' unless Gem::Version.new(Puppet.version) < Gem::Version.new("3.5.0")
+
+task :librarian_spec_prep do
+  sh "librarian-puppet install --path=spec/fixtures/modules/"
+end
+task :spec_prep => :librarian_spec_prep
+
+Rake::Task[:lint].clear # workaround https://github.com/rodjek/puppet-lint/issues/331
+PuppetLint.configuration.relative = true # https://github.com/rodjek/puppet-lint/pull/334
+PuppetLint::RakeTask.new :lint do |config|
+  config.pattern = 'manifests/**/*.pp'
+  config.disable_checks = ['80chars', 'class_inherits_from_params_class']
+  config.fail_on_warnings = true
+  # config.relative = true
 end
 
-PuppetLint.configuration.relative = true
-PuppetLint.configuration.send("disable_80chars")
-PuppetLint.configuration.log_format = "%{path}:%{line}:%{check}:%{KIND}:%{message}"
-PuppetLint.configuration.fail_on_warnings = true
-
-# Forsake support for Puppet 2.6.2 for the benefit of cleaner code.
-# http://puppet-lint.com/checks/class_parameter_defaults/
-PuppetLint.configuration.send('disable_class_parameter_defaults')
-# http://puppet-lint.com/checks/class_inherits_from_params_class/
-PuppetLint.configuration.send('disable_class_inherits_from_params_class')
-
-exclude_paths = [
-    "pkg/**/*",
-    "vendor/**/*",
-    "spec/**/*",
-]
-PuppetLint.configuration.ignore_paths = exclude_paths
-PuppetSyntax.exclude_paths = exclude_paths
-
-task :metadata do
-  sh "metadata-json-lint metadata.json"
-end
-
-desc "Run syntax, lint, and spec tests."
-task :test => [
-         :syntax,
-         :lint,
-         :spec,
-         :metadata,
-     ]
-
-task :default => :test
+task :default => [:clean, :validate, :lint, :spec]
