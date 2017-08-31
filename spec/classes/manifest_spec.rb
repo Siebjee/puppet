@@ -15,8 +15,7 @@ describe 'panopta::manifest' do
   let(:facts) do
     {
       'hostname' => 'test',
-      'fqdn' => 'test.example.local',
-      'real_server_key' => '7321987392'
+      'fqdn' => 'test.example.local'
     }
   end
 
